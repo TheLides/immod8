@@ -35,6 +35,13 @@ namespace Lab8
             "Outlook not so good",
             "Very doubtful"
         };
+        public const double yesNoConst = 0.5;
+        public const double ballConst = 0;
+        public List<String> yesAndNo = new List<String>()
+        {
+            "Yes",
+            "No"
+        };
 
         public Form1()
         {
@@ -43,31 +50,38 @@ namespace Lab8
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (rnd.NextDouble() < 0.5d)
-            {
-                labelAns.Text = "Yes";
-            }
-            else
-            {
-                labelAns.Text = "No";
-            }
-
+            labelAns.Text = YesOrNo(rnd.NextDouble());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            double current = rnd.NextDouble();
-            double ourProb = (double) 1 / predictions.Count;
-            foreach(var ans in predictions)
+            labelAns.Text = Ball8(rnd.NextDouble());            
+        }
+
+        private string YesOrNo (double r)
+        {
+            if (r < yesNoConst)
+            {
+                return yesAndNo[0];
+            }
+            else
+            {
+                return yesAndNo[1];
+            }
+        }
+
+        private string Ball8 (double current)
+        {
+            double ourProb = (double)1 / predictions.Count;
+            foreach (var ans in predictions)
             {
                 current -= ourProb;
-                if(current <= 0)
+                if (current <= ballConst)
                 {
-                    labelAns.Text = ans;
-                    break;
+                    return ans;
                 }
             }
-            
+            return predictions[0];
         }
     }
 }
